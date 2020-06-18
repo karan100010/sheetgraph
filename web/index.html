@@ -56,7 +56,7 @@ d3.json("http://192.168.56.101:5000/getGraphData", function(error, graph) {
     .enter().append("g")
 
   var circles = node.append("circle")
-      .attr("r", 5)
+      .attr("r", 10)
       .attr("fill", function(d) { return color(d.group); })
       .call(d3.drag()
           .on("start", dragstarted)
