@@ -32,8 +32,17 @@ svg.attr("viewBox", [-width / 2, -height / 2, width, height]);
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
+var forceLink = d3
+    .forceLink().id(function (d) {
+        return d.id;
+    })
+    .distance(function (d) {
+        return GetNodeDefaults(d.label).linkDistance;
+    })
+    .strength(0.1);
+
 var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    .force("link", forceLink)
     .force("charge", d3.forceManyBody())
     .force("x", d3.forceX())
     .force("y", d3.forceY());
