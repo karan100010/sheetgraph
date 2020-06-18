@@ -104,6 +104,8 @@ function processSheetData(tabletop) {
 
 function getJSON(filename) {
   jsondata = {}
+  let rawdata = fs.readFileSync(filename);
+  let jsondata = JSON.parse(rawdata);
   return jsondata
 }
 
