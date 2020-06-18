@@ -1,7 +1,7 @@
 // https://observablehq.com/@arjunvenkatraman/disjoint-force-directed-graph@141
 export default function define(runtime, observer) {
   const main = runtime.module();
-  const fileAttachments = new Map([["graph.json",new URL("http://localhost/RawData/graphdata.json",import.meta.url)]]);
+  const fileAttachments = new Map([["http://localhost/RawData/graphdata.json",new URL("./files/e3680d5f766e85edde560c9c31a6dba2ddfcf2f66e1dced4afa18d8040f1f205e0bde1b8b234d866373f2bfc5806fafc47e244c5c9f48b60aaa1917c1b80fcb7",import.meta.url)]]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], function(md){return(
 md`# Disjoint Force-Directed Graph
