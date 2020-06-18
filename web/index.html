@@ -42,7 +42,8 @@ var forceLink = d3
     .strength(50);
 
 var simulation = d3.forceSimulation()
-    .force("link", forceLink)
+  //  .force("link", forceLink)
+    .force("link", d3.forceLink().id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody())
     .force("x", d3.forceX())
     .force("y", d3.forceY());
@@ -56,7 +57,7 @@ d3.json("http://192.168.56.101:5000/getGraphData", function(error, graph) {
     .selectAll("line")
     .data(graph.links)
     .enter().append("line")
-      .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+      .attr("stroke-width", function(d) { return Math.sqrt(d.value)*5; });
 
   var node = svg.append("g")
       .attr("class", "nodes")
