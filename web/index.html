@@ -39,7 +39,7 @@ var forceLink = d3
     .distance(function (d) {
         return GetNodeDefaults(d.label).linkDistance;
     })
-    .strength(0.1);
+    .strength(50);
 
 var simulation = d3.forceSimulation()
     .force("link", forceLink)
