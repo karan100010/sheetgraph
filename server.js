@@ -13,20 +13,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
 const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1KZtJDrmyam3LW4cK59ECbL7UKDzvQgWzaJAfyNK9XBI/edit?usp=sharing";
 
 // Datasource check with datasrc var
-app.get('/getBlockData', async (req, res) => {
-  if (datasrc === "TSV") {
-    let rawtsv = fs.readFileSync('./RawData/VideoData.tsv', 'utf8')
-    let revisedJSON = await tsvJSON(rawtsv);
+app.get('/getGraphData', async (req, res) => {
+  if (datasrc === "JSON") {
+    //let rawtsv = fs.readFileSync('./RawData/VideoData.csv', 'utf8')
+    let revisedJSON = await getJSON('./RawData/graphdata.json');
     fs.writeFileSync('./RawData/VideoData.json', JSON.stringify(revisedJSON, null, 2))
-    console.log("Sending back TSV Response")
+    console.log("Sending back JSON Response")
     res.send(revisedJSON)
   }
   if (datasrc === "SHEET") {
     let revisedJSON = await getSheetData();
-    fs.writeFileSync('./RawData/VideoData.json', JSON.stringify(revisedJSON, null, 2))
+    //fs.writeFileSync('./RawData/VideoData.json', JSON.stringify(revisedJSON, null, 2))
     console.log("Sending Sheet Response")
     res.send(revisedJSON)
   }
