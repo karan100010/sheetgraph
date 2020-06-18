@@ -2,6 +2,7 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let fs = require('fs');
 let request = require('request');
+var cors = require('cors')
 const path = require('path');
 const Tabletop = require('tabletop'); //arjunvenkatraman added to load data from Google Sheets directly
 let arrayWithData = [];
@@ -10,6 +11,7 @@ const port = process.env.PORT || 5000;
 const datasrc = "JSON" // "TSV" or "SHEET"
 const approvedSheetName = 'People';
 app.use(bodyParser.json());
+app.use(cors());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
