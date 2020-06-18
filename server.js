@@ -18,10 +18,27 @@ const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1KZtJDrmyam
 
 // Datasource check with datasrc var
 app.get('/getGraphData', async (req, res) => {
+  console.log("Trying to get graph data...")
   if (datasrc === "JSON") {
-    let revisedJSON = await getJSON('./RawData/graphdata.json');
+    let links = await getJSON('./RawData/graphdata.json');
+    graph = {"nodes":[],"links":[]}
+    nodelookup={}
+    links.forEach(link => {
+      console.log(link)
+      if (!(link.source in nodelookup)) {
+        nodelookup[link.source] = 1;
+        graph.nodes.push({"id":link.source, "group":Object.keys(nodelookup).length+1});
+      }
+      if (!(link.target in nodelookup)) {
+        nodelookup[link.target] = 1;
+        graph.nodes.push({"id":link.target, "group":Object.keys(nodelookup).length+1});
+
+      }
+      graph.links.push({"source":link.source,"target":link.target, "weight":link.story, curvature:Math.random(), "year":Number(link.year), "link":link.link})
+
+    })
     console.log("Sending back JSON Response")
-    res.send(revisedJSON)
+    res.send(graph)
   }
   if (datasrc === "SHEET") {
     let revisedJSON = await getSheetData();
@@ -43,6 +60,7 @@ function getSheetData() {
     })
   })
 }
+
 
 //Cleaning up the sheet data
 function processSheetData(tabletop) {
@@ -108,6 +126,31 @@ function getJSON(filename) {
   let jsondata = JSON.parse(rawdata);
   return jsondata
 }
+
+
+app.get('/graph', async (req, res) => {
+  console.log("Trying to get graph data...")
+  let links = await getGraphSheetData("graph");
+  graph = {"nodes":[],"links":[]}
+  nodelookup={}
+  links.forEach(link => {
+    console.log(link)
+    if (!(link.source in nodelookup)) {
+      nodelookup[link.source] = 1;
+      graph.nodes.push({"id":link.source, "group":Object.keys(nodelookup).length+1});
+    }
+    if (!(link.target in nodelookup)) {
+      nodelookup[link.target] = 1;
+      graph.nodes.push({"id":link.target, "group":Object.keys(nodelookup).length+1});
+
+    }
+    graph.links.push({"source":link.source,"target":link.target, "weight":link.story, curvature:Math.random(), "year":Number(link.year), "link":link.link})
+
+  })
+  res.send(graph)
+})
+
+
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
