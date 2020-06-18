@@ -19,15 +19,12 @@ const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1KZtJDrmyam
 // Datasource check with datasrc var
 app.get('/getGraphData', async (req, res) => {
   if (datasrc === "JSON") {
-    //let rawtsv = fs.readFileSync('./RawData/VideoData.csv', 'utf8')
     let revisedJSON = await getJSON('./RawData/graphdata.json');
-    fs.writeFileSync('./RawData/VideoData.json', JSON.stringify(revisedJSON, null, 2))
     console.log("Sending back JSON Response")
     res.send(revisedJSON)
   }
   if (datasrc === "SHEET") {
     let revisedJSON = await getSheetData();
-    //fs.writeFileSync('./RawData/VideoData.json', JSON.stringify(revisedJSON, null, 2))
     console.log("Sending Sheet Response")
     res.send(revisedJSON)
   }
@@ -105,50 +102,9 @@ function processSheetData(tabletop) {
   }
 }
 
-//Cleaning up the TSV data
-function tsvJSON(tsv) {
-  return new Promise((resolve, reject) => {
-    var lines = tsv.split(/\r?\n/);
-    let titleLine = lines.shift();
-    let captionIndex = titleLine.split(/\t/).indexOf('Caption');
-    let dateIndex = titleLine.split(/\t/).indexOf('Date');
-    let latIndex = titleLine.split(/\t/).indexOf('Latitude (°N)');
-    let longIndex = titleLine.split(/\t/).indexOf('Longitude (°E)');
-    let linkIndex = titleLine.split(/\t/).indexOf('Link');
-    let cityIndex = titleLine.split(/\t/).indexOf('City');
-    let newjson = {"states":{},"totalBlocks":0}
-
-    lines.map(line => {
-        let currentline = line.split(/\t/);
-        if(!isNaN(currentline['Latitude (°N)']) && !isNaN(currentline['Longitude (°E)'])) {
-            if(newjson.states[currentline[cityIndex]] != undefined) {
-                newjson.states[currentline[cityIndex]].blocks.push({
-                    link: currentline[linkIndex],
-                    caption: currentline[captionIndex],
-                    date: currentline[dateIndex]
-                })
-            }
-            else {
-                newjson.states[currentline[cityIndex]] = {
-                    videos: [{
-                        link: currentline[linkIndex],
-                        caption: currentline[captionIndex],
-                        date: currentline[dateIndex]
-                    }],
-                    coordinates: {
-                        latitude: currentline[latIndex],
-                        longitude: currentline[longIndex]
-                    }
-                }
-            }
-        }
-    })
-    newjson.totalBlocks = lines.length;
-    resolve(newjson);
-    // reject({
-    //   error: 'something went wrong in tsv to JSON conversion'
-    // })
-  })
+function getJSON(filename) {
+  jsondata = {}
+  return jsondata
 }
 
 if (process.env.NODE_ENV === 'production') {
