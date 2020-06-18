@@ -7,7 +7,7 @@ const Tabletop = require('tabletop'); //arjunvenkatraman added to load data from
 let arrayWithData = [];
 const app = express();
 const port = process.env.PORT || 5000;
-const datasrc = "SHEET" // "TSV" or "SHEET"
+const datasrc = "JSON" // "TSV" or "SHEET"
 const approvedSheetName = 'People';
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
