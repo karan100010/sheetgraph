@@ -37,13 +37,13 @@ var forceLink = d3
         return d.id;
     })
     .distance(function (d) {
-        return GetNodeDefaults(d.label).linkDistance;
+        return 50;
     })
-    .strength(50);
+    .strength(0.1);
 
 var simulation = d3.forceSimulation()
-  //  .force("link", forceLink)
-    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    .force("link", forceLink)
+    //.force("link", d3.forceLink().id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody())
     .force("x", d3.forceX())
     .force("y", d3.forceY());
