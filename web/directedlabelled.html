@@ -59,7 +59,7 @@
             .attr('marker-end','url(#arrowhead)')
 
         link.append("title")
-            .text(function (d) {return d.group;});
+            .text(function (d) {return d.weight;});
 
         edgepaths = svg.selectAll(".edgepath")
             .data(links)
@@ -90,7 +90,7 @@
             .style("text-anchor", "middle")
             .style("pointer-events", "none")
             .attr("startOffset", "50%")
-            .text(function (d) {return d.group});
+            .text(function (d) {return d.weight});
 
         node = svg.selectAll(".node")
             .data(nodes)
@@ -112,7 +112,7 @@
 
         node.append("text")
             .attr("dy", -3)
-            .text(function (d) {return d.id+":"+d.weight;});
+            .text(function (d) {return d.id+":"+d.group;});
 
         simulation
             .nodes(nodes)
