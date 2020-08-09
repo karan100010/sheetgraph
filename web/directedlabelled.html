@@ -132,8 +132,9 @@
             .attr("y2", function (d) {return d.target.y;});
 
         node
-            .attr("transform", function (d) {return "translate(" + d.x + ", " + d.y + ")";});
-
+            //.attr("transform", function (d) {return "translate(" + d.x + ", " + d.y + ")";});
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y);
         edgepaths.attr('d', function (d) {
             return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
         });
