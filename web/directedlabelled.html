@@ -165,6 +165,12 @@
         console.log(d3.event.x, d3.event.y)
         d.fx = d3.event.x;
         d.fy = d3.event.y;
+        if (d.fx>1000){
+          d.fx=1000
+        }
+        if(d.fy>1000){
+          d.fy=1000
+        }
     }
 
 //    function dragended(d) {
