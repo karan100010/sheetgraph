@@ -40,10 +40,10 @@
         .style('stroke','none');
 
     var simulation = d3.forceSimulation()
-        .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(10).strength(1))
+        .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(10).strength(2))
         .force("charge", d3.forceManyBody())
-        //.force("x", d3.forceX())
-        //.force("y", d3.forceY())
+        .force("x", d3.forceX())
+        .force("y", d3.forceY())
         .force('collision', d3.forceCollide().radius(function(d) {
             return 20
           }))
