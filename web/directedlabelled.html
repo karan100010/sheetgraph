@@ -7,10 +7,13 @@
     <style type="text/css">
         .node {
              font-family: Arial, Helvetica, sans-serif;
-             font-size:10;
         }
 
-        .link { stroke: #999; stroke-opacity: .6; stroke-width: 1px; }
+        .link {
+          stroke: #999;
+          stroke-opacity: .6;
+          stroke-width: 1px;
+        }
     </style>
 </head>
 <body>
@@ -120,7 +123,11 @@
 
         node.append("text")
             .attr("dy", -3)
-            .text(function (d) {return d.id+":"+d.group;});
+            .text(function (d) {return d.id;})
+            .attrs({
+                'font-size': 10
+                //'fill': '#bbb'
+            });
 
         simulation
             .nodes(nodes)
