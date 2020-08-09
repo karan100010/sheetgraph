@@ -108,7 +108,7 @@
             .call(d3.drag()
                     .on("start", dragstarted)
                     .on("drag", dragged)
-                    //.on("end", dragended)
+                    .on("end", dragended)
             );
 
         node.append("circle")
@@ -171,6 +171,11 @@
         console.log(d3.event.x, d3.event.y)
         d.fx = d3.event.x;
         d.fy = d3.event.y;
+
+    }
+
+    function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
         if (d.fx>1000){
           d.fx=900
         }
@@ -184,12 +189,6 @@
           d.fy=100
         }
     }
-
-//    function dragended(d) {
-//        if (!d3.event.active) simulation.alphaTarget(0);
-//        d.fx = undefined;
-//        d.fy = undefined;
-//    }
 
 </script>
 
