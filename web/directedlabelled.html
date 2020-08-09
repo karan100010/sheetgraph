@@ -67,7 +67,7 @@
             .attr('marker-end','url(#arrowhead)')
 
         link.append("title")
-            .text(function (d) {return d.weight;});
+            .text(function (d) {return d.story;});
 
         edgepaths = svg.selectAll(".edgepath")
             .data(links)
@@ -98,7 +98,7 @@
             .style("text-anchor", "middle")
             .style("pointer-events", "none")
             .attr("startOffset", "50%")
-            .text(function (d) {return d.weight});
+            .text(function (d) {return d.story});
 
         node = svg.selectAll(".node")
             .data(nodes)

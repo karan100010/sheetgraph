@@ -22,9 +22,10 @@ const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/1KZtJDrmyam
 app.get('/getGraphData', async (req, res) => {
   console.log("Trying to get graph data...")
   if (datasrc === "JSON") {
-    let links = await getJSON('./RawData/graphdata.json');
-    graph = {"nodes":[],"links":[]}
-    nodelookup={}
+    let graph = await getJSON('./RawData/graphdata.json');
+    //graph = {"nodes":[],"links":[]}
+    //nodelookup={}
+    /*
     links.forEach(link => {
       console.log(link)
       if (!(link.source in nodelookup)) {
@@ -38,7 +39,8 @@ app.get('/getGraphData', async (req, res) => {
       }
       graph.links.push({"source":link.source,"target":link.target, "weight":link.story, curvature:Math.random(), "year":Number(link.year), "link":link.link})
 
-    })
+    })*/
+
     console.log("Sending back JSON Response")
     res.send(graph)
   }
