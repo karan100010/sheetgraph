@@ -113,7 +113,7 @@
 
         node.append("circle")
             .attr("r", 5)
-            .style("fill", function (d, i) {return colors(i);})
+            .style("fill", function (d, i) {return colors(d.group);})
 
         node.append("title")
             .text(function (d) {return d.id;});
